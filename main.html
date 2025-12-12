@@ -91,14 +91,23 @@
     <!-- About Section -->
     <div data-include="components/about.html"></div>
 
+    <!-- Process Section -->
+    <div data-include="components/process.html"></div>
+
     <!-- Calendars Section -->
     <div data-include="components/calendars.html"></div>
 
     <!-- Services / Prices Section -->
     <div data-include="components/services.html"></div>
 
+    <!-- Testimonials Section -->
+    <div data-include="components/testimonials.html"></div>
+
     <!-- Gallery Section -->
     <div data-include="components/gallery.html"></div>
+
+    <!-- FAQ Section -->
+    <div data-include="components/faq.html"></div>
 
     <!-- Blog Section -->
     <div data-include="components/blog.html"></div>
@@ -408,6 +417,27 @@
             }, observerOptions);
 
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            // --- FAQ Accordion ---
+            window.toggleFaq = function (button) {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+
+                // Toggle current
+                if (content.style.height && content.style.height !== '0px') {
+                    content.style.height = '0px';
+                    icon.classList.remove('rotate-45');
+                    icon.classList.remove('text-red-500'); // Optional: change color on active
+                    icon.classList.add('text-gold');
+                    button.classList.remove('bg-gray-800');
+                } else {
+                    content.style.height = content.scrollHeight + 'px';
+                    icon.classList.add('rotate-45');
+                    icon.classList.remove('text-gold');
+                    icon.classList.add('text-white'); // Optional highlight
+                    button.classList.add('bg-gray-800');
+                }
+            };
         }
 
         // Start loading
