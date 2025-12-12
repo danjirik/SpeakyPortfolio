@@ -694,7 +694,7 @@
                         <div>
                             <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Předmět / Typ
                                 focení</label>
-                            <select
+                            <select id="subjectSelect"
                                 class="w-full bg-card-bg border border-gray-700 text-white p-3 focus:outline-none focus:border-gold transition-colors focus:bg-black">
                                 <option>Svatba</option>
                                 <option>Portrétní focení</option>
@@ -703,6 +703,12 @@
                                 <option>Kalendář 2026</option>
                                 <option>Jiné</option>
                             </select>
+                        </div>
+                        <div id="otherSubjectGroup" class="hidden">
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Specifikujte
+                                předmět *</label>
+                            <input type="text"
+                                class="w-full bg-card-bg border border-gray-700 text-white p-3 focus:outline-none focus:border-gold transition-colors focus:bg-black">
                         </div>
                         <div>
                             <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Zpráva *</label>
@@ -831,6 +837,22 @@
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
             setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
+        }
+
+        // --- Dynamic Subject Input ---
+        const subjectSelect = document.getElementById('subjectSelect');
+        const otherSubjectGroup = document.getElementById('otherSubjectGroup');
+
+        if (subjectSelect && otherSubjectGroup) {
+            subjectSelect.addEventListener('change', () => {
+                if (subjectSelect.value === 'Jiné') {
+                    otherSubjectGroup.classList.remove('hidden');
+                    otherSubjectGroup.querySelector('input').setAttribute('required', 'true');
+                } else {
+                    otherSubjectGroup.classList.add('hidden');
+                    otherSubjectGroup.querySelector('input').removeAttribute('required');
+                }
+            });
         }
 
         closeLightbox.addEventListener('click', () => {
