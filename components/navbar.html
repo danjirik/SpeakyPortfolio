@@ -1,0 +1,39 @@
+<!-- Navigation -->
+<nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 bg-transparent">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+        <a href="#" class="text-2xl font-serif font-bold tracking-widest text-white">
+            JAN<span class="text-gold">SPILKA</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden lg:flex space-x-6 items-center">
+            <a href="#home" class="hover:text-gold transition-colors text-xs uppercase tracking-wider">Domů</a>
+            <a href="#about" class="hover:text-gold transition-colors text-xs uppercase tracking-wider">O mně</a>
+            <a href="#calendars"
+                class="text-gold hover:text-white transition-colors text-xs uppercase tracking-wider font-bold">Kalendář
+                2026</a>
+            <a href="#services" class="hover:text-gold transition-colors text-xs uppercase tracking-wider">Ceník</a>
+            <a href="#gallery" class="hover:text-gold transition-colors text-xs uppercase tracking-wider">Portfolio</a>
+            <a href="#blog" class="hover:text-gold transition-colors text-xs uppercase tracking-wider">Blog</a>
+            <a href="#contact"
+                class="px-5 py-2 border border-gold text-gold hover:bg-gold hover:text-black transition-all duration-300 uppercase text-xs tracking-widest font-bold">Rezervovat</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="hidden absolute top-full left-0 w-full bg-dark-bg border-t border-gray-800 p-6 flex-col space-y-4 lg:hidden shadow-xl">
+        <a href="#home" class="block text-center py-2 hover:text-gold">Domů</a>
+        <a href="#about" class="block text-center py-2 hover:text-gold">O mně</a>
+        <a href="#calendars" class="block text-center py-2 text-gold font-bold">Kalendář 2026</a>
+        <a href="#services" class="block text-center py-2 hover:text-gold">Ceník</a>
+        <a href="#gallery" class="block text-center py-2 hover:text-gold">Portfolio</a>
+        <a href="#blog" class="block text-center py-2 hover:text-gold">Blog</a>
+        <a href="#contact" class="block text-center py-2 text-gold font-bold">Kontakt</a>
+    </div>
+</nav>

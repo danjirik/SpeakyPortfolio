@@ -1,0 +1,116 @@
+<!-- Gallery Section -->
+<section id="gallery" class="py-20 bg-dark-bg">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 fade-in">
+            <h2 class="text-4xl font-serif font-bold text-white mb-4">Portfolio</h2>
+            <div class="w-24 h-1 bg-gold mx-auto mb-8"></div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4">
+                <button
+                    class="filter-btn active px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-wider hover:border-gold hover:text-gold transition-all duration-300"
+                    data-filter="all">Vše</button>
+                <button
+                    class="filter-btn px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-wider hover:border-gold hover:text-gold transition-all duration-300"
+                    data-filter="svatba">Svatby</button>
+                <button
+                    class="filter-btn px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-wider hover:border-gold hover:text-gold transition-all duration-300"
+                    data-filter="portret">Portrét & Páry</button>
+                <button
+                    class="filter-btn px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-wider hover:border-gold hover:text-gold transition-all duration-300"
+                    data-filter="produkt">Produkt</button>
+                <button
+                    class="filter-btn px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-wider hover:border-gold hover:text-gold transition-all duration-300"
+                    data-filter="mazlicci">Mazlíčci</button>
+            </div>
+        </div>
+
+        <!-- Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+
+            <!-- Svatba 1 -->
+            <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in" data-category="svatba"
+                onclick="openLightbox(this)">
+                <img src="images/svatba1.jpg" alt="Svatba" class="w-full h-full object-cover image-hover-zoom">
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                    <div
+                        class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <p class="text-gold text-xs uppercase tracking-widest">Svatba</p>
+                        <h3 class="text-white font-serif text-xl">Láska v detailech</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mazlíčci -->
+            <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in"
+                data-category="mazlicci" onclick="openLightbox(this)">
+                <img src="images/mazlicek.jpg" alt="Pes v přírodě" class="w-full h-full object-cover image-hover-zoom">
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                    <div
+                        class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <p class="text-gold text-xs uppercase tracking-widest">Mazlíčci</p>
+                        <h3 class="text-white font-serif text-xl">Věrný přítel</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portrét -->
+            <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in" data-category="portret"
+                onclick="openLightbox(this)">
+                <img src="images/portrét.jpeg" alt="Portrét žena" class="w-full h-full object-cover image-hover-zoom">
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                    <div
+                        class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <p class="text-gold text-xs uppercase tracking-widest">Portrét</p>
+                        <h3 class="text-white font-serif text-xl">Emoce okamžiku</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produkt -->
+            <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in" data-category="produkt"
+                onclick="openLightbox(this)">
+                <img src="images/produkt.jpg" alt="Hodinky" class="w-full h-full object-cover image-hover-zoom">
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                    <div
+                        class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <p class="text-gold text-xs uppercase tracking-widest">Produkt</p>
+                        <h3 class="text-white font-serif text-xl">Produktová fotografie</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Svatba 2 -->
+            <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in" data-category="svatba"
+                onclick="openLightbox(this)">
+                <img src="images/svatba2.jpg" alt="Svatba pár" class="w-full h-full object-cover image-hover-zoom">
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                    <div
+                        class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <p class="text-gold text-xs uppercase tracking-widest">Svatba</p>
+                        <h3 class="text-white font-serif text-xl">Společná cesta</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Párové -->
+            <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in" data-category="portret"
+                onclick="openLightbox(this)">
+                <img src="images/svatba3.jpg" alt="Pár v horách" class="w-full h-full object-cover image-hover-zoom">
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                    <div
+                        class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        <p class="text-gold text-xs uppercase tracking-widest">Párové</p>
+                        <h3 class="text-white font-serif text-xl">Spolu</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
