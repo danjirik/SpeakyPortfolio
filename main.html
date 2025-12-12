@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jan Spilka | Fotograf & Videotvůrce</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gold': '#D4AF37',
+                        'dark-bg': '#0f0f0f',
+                        'card-bg': '#1a1a1a',
+                        'card-hover': '#252525',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
+        .image-hover-zoom {
+            transition: transform 0.5s ease;
+        }
+
+        .group:hover .image-hover-zoom {
+            transform: scale(1.05);
+        }
+
+        /* Fade in animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gallery Filter Active State */
+        .filter-btn.active {
+            background-color: #D4AF37;
+            color: black;
+            border-color: #D4AF37;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-gray-200 font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 bg-transparent">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif font-bold tracking-widest text-white">
+                JAN<span class="text-gold">SPILKA</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex space-x-6 items-center">
+                <a href="#home" class="hover:text-gold transition-colors text-xs uppercase tracking-wider">Domů</a>
+                <a href="#about" class="hover:text-gold transition-colors text-xs uppercase tracking-wider">O mně</a>
+                <a href="#calendars"
+                    class="text-gold hover:text-white transition-colors text-xs uppercase tracking-wider font-bold">Kalendář
+                    2026</a>
+                <a href="#gallery"
+                    class="hover:text-gold transition-colors text-xs uppercase tracking-wider">Portfolio</a>
+                <a href="#services" class="hover:text-gold transition-colors text-xs uppercase tracking-wider">Ceník</a>
+                <a href="#blog" class="hover:text-gold transition-colors text-xs uppercase tracking-wider">Blog</a>
+                <a href="#contact"
+                    class="px-5 py-2 border border-gold text-gold hover:bg-gold hover:text-black transition-all duration-300 uppercase text-xs tracking-widest font-bold">Rezervovat</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu"
+            class="hidden absolute top-full left-0 w-full bg-dark-bg border-t border-gray-800 p-6 flex-col space-y-4 lg:hidden shadow-xl">
+            <a href="#home" class="block text-center py-2 hover:text-gold">Domů</a>
+            <a href="#about" class="block text-center py-2 hover:text-gold">O mně</a>
+            <a href="#calendars" class="block text-center py-2 text-gold font-bold">Kalendář 2026</a>
+            <a href="#gallery" class="block text-center py-2 hover:text-gold">Portfolio</a>
+            <a href="#services" class="block text-center py-2 hover:text-gold">Ceník</a>
+            <a href="#blog" class="block text-center py-2 hover:text-gold">Blog</a>
+            <a href="#contact" class="block text-center py-2 text-gold font-bold">Kontakt</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                alt="Jan Spilka Photography" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark-bg/60 via-transparent to-dark-bg"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6 fade-in max-w-4xl mx-auto">
+            <p class="text-gold uppercase tracking-[0.3em] text-sm mb-4">Láska a vášeň</p>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+                Jedinečné<br>Příběhy
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl font-light mb-8 leading-relaxed">
+                Fotografování je pro mě nejen prací, ale také láskou! Zachycuji neopakovatelné příběhy na svatbách,
+                kouzlo přírody i krásy světa.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#gallery"
+                    class="px-8 py-3 bg-gold text-black font-bold uppercase tracking-widest hover:bg-white transition-colors duration-300">
+                    Prohlédnout Portfolio
+                </a>
+                <a href="#contact"
+                    class="px-8 py-3 border border-white text-white font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors duration-300">
+                    Rezervovat Termín
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-white opacity-50 hover:opacity-100 transition-opacity">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section & YouTube -->
+    <section id="about" class="py-20 bg-dark-bg text-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-12 items-start">
+
+                <!-- Content -->
+                <div class="w-full md:w-1/2 fade-in">
+                    <h2 class="text-4xl font-serif font-bold mb-6">O mně</h2>
+                    <h3 class="text-xl text-gold mb-6">Fotograf, cestovatel a YouTuber</h3>
+
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Už od malička mě bavilo fotit. Když mi bylo asi 6 let, měl jsem svůj první jednorázový
+                        analogový. Pamatuji si, jak jsem s ním stál v pražské zoo u výběhu goril a přemýšlel, zda
+                        zmáčknout spoušť – měl jsem přeci jen 36 snímků!
+                    </p>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        Velká změna nastala v roce 2013, kdy jsem dostal k Vánocům první digitální zrcadlovku. Od té
+                        doby mě to nepustilo. Přišel další a další fotoaparát, nové objektivy, světla, příslušenství...
+                        a dnes mám za sebou více než 12 let zkušeností.
+                    </p>
+
+                    <!-- Gear List -->
+                    <div class="bg-card-bg p-6 border-l-4 border-gold mb-8">
+                        <h4 class="text-white font-bold mb-3 uppercase tracking-wider text-sm">Moje technika</h4>
+                        <ul class="text-gray-400 text-sm space-y-1">
+                            <li><i class="fas fa-camera text-gold mr-2"></i> Canon R6 Mark II</li>
+                            <li><i class="fas fa-camera text-gold mr-2"></i> Canon 6D Mark II</li>
+                            <li><i class="fas fa-camera text-gold mr-2"></i> Canon 600D</li>
+                            <li><i class="fas fa-camera-retro text-gold mr-2"></i> Canon AE-1 Program (Analog)</li>
+                        </ul>
+                    </div>
+
+                    <!-- YouTube Section -->
+                    <div class="mb-8">
+                        <h4 class="text-white font-bold text-xl mb-3"><i class="fab fa-youtube text-red-600 mr-2"></i>
+                            Natáčení videí</h4>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Nezůstávám jen u focení. Na mém YouTube kanále tvořím sérii <strong>"Páteční
+                                pětiminutovka"</strong>, kde předávám tipy a triky pro fotografy. V listopadu 2025 jsme
+                            pokořili hranici 1000 odběratelů!
+                        </p>
+                        <a href="https://youtube.com" target="_blank"
+                            class="text-gold hover:text-white underline text-sm">Prozkoumat videa &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Stats & Image -->
+                <div class="w-full md:w-1/2 fade-in">
+                    <div class="relative mb-12">
+                        <img src="images/profilePic.jpg" alt="Jan Spilka"
+                            class="w-full h-auto transition-all duration-500 shadow-2xl rounded-sm">
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 text-center">
+                        <div class="p-4 bg-card-bg border border-gray-800">
+                            <span class="block text-3xl font-bold text-gold">12</span>
+                            <span class="text-xs text-gray-500 uppercase">Let zkušeností</span>
+                        </div>
+                        <div class="p-4 bg-card-bg border border-gray-800">
+                            <span class="block text-3xl font-bold text-gold">10+</span>
+                            <span class="text-xs text-gray-500 uppercase">Nafocených svateb</span>
+                        </div>
+                        <div class="p-4 bg-card-bg border border-gray-800">
+                            <span class="block text-3xl font-bold text-gold">1k+</span>
+                            <span class="text-xs text-gray-500 uppercase">YouTube Fans</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendars 2026 Section (New) -->
+    <section id="calendars" class="py-20 bg-card-bg border-y border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <span class="text-gold text-sm font-bold uppercase tracking-widest">Limitovaná edice</span>
+                <h2 class="text-4xl font-serif font-bold text-white mt-2 mb-4">Fotografické kalendáře 2026</h2>
+                <div class="w-24 h-1 bg-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Photo Calendar -->
+                <div
+                    class="bg-dark-bg p-8 border border-gray-700 hover:border-gold transition-all duration-300 group fade-in">
+                    <div class="mb-6">
+                        <div class="h-64 overflow-hidden mb-2 relative">
+                            <img src="images/fotografický_kalednář.jpg" alt="Fotografický kalendář"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer"
+                                onclick="openLightbox(this)">
+                            <div class="absolute top-4 right-4 bg-gold text-black font-bold px-3 py-1 text-sm">NOVINKA
+                            </div>
+                        </div>
+                        <!-- Previews -->
+                        <div class="grid grid-cols-3 gap-2">
+                            <img src="images/fotokalendarpreview1.jpg"
+                                class="h-16 w-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                                alt="Preview 1" onclick="openLightbox(this)">
+                            <img src="images/fotokalendarpreview2.jpg"
+                                class="h-16 w-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                                alt="Preview 2" onclick="openLightbox(this)">
+                            <img src="images/fotokalendarpreview3.jpg"
+                                class="h-16 w-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                                alt="Preview 3" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-serif text-white mb-2">Fotografický kalendář 2026</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Spíše foto obraz, který se mění. Snímky z dronu z Řecka, švýcarské Alpy nebo daňci z Dánska.
+                        Žádná zbytečná grafika, jen čistá krása světa.
+                    </p>
+                    <ul class="text-gray-500 text-sm mb-6 space-y-2">
+                        <li><i class="fas fa-check text-gold mr-2"></i> Velikost A3 (42 x 29,7 cm)</li>
+                        <li><i class="fas fa-check text-gold mr-2"></i> 13 fotografií na kvalitním papíře</li>
+                    </ul>
+                    <div class="flex justify-between items-center border-t border-gray-800 pt-6">
+                        <span class="text-3xl font-serif text-white">400 Kč</span>
+                        <a href="#contact"
+                            class="px-6 py-2 bg-white text-black font-bold uppercase text-sm hover:bg-gold transition-colors">Objednat</a>
+                    </div>
+                </div>
+
+                <!-- Mushroom Calendar -->
+                <div
+                    class="bg-dark-bg p-8 border border-gray-700 hover:border-gold transition-all duration-300 group fade-in">
+                    <div class="mb-6">
+                        <div class="h-64 overflow-hidden mb-2 relative">
+                            <img src="images/houbovykalendar.jpg" alt="Houbový kalendář"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer"
+                                onclick="openLightbox(this)">
+                            <div class="absolute top-4 right-4 bg-green-700 text-white font-bold px-3 py-1 text-sm">PRO
+                                HOUBAŘE</div>
+                        </div>
+                        <!-- Previews -->
+                        <div class="grid grid-cols-3 gap-2">
+                            <img src="images/houbkalendarpreview1.jpg"
+                                class="h-16 w-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                                alt="Preview 1" onclick="openLightbox(this)">
+                            <img src="images/houbkalendarpreview2.jpg"
+                                class="h-16 w-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                                alt="Preview 2" onclick="openLightbox(this)">
+                            <img src="images/houbkalendarpreview3.jpg"
+                                class="h-16 w-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                                alt="Preview 3" onclick="openLightbox(this)">
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-serif text-white mb-2">Houbový kalendář 2026</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Pro nadšené houbaře! Plný jedlých i nejedlých, ale hlavně krásných hub. Kouzlo lesa zblízka pro
+                        každý měsíc v roce.
+                    </p>
+                    <ul class="text-gray-500 text-sm mb-6 space-y-2">
+                        <li><i class="fas fa-check text-gold mr-2"></i> Velikost A3 (42 x 29,7 cm)</li>
+                        <li><i class="fas fa-check text-gold mr-2"></i> Detailní makro fotografie</li>
+                    </ul>
+                    <div class="flex justify-between items-center border-t border-gray-800 pt-6">
+                        <span class="text-3xl font-serif text-white">400 Kč</span>
+                        <a href="#contact"
+                            class="px-6 py-2 bg-white text-black font-bold uppercase text-sm hover:bg-gold transition-colors">Objednat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-dark-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-serif font-bold text-white mb-4">Portfolio</h2>
+                <div class="w-24 h-1 bg-gold mx-auto mb-8"></div>
+
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button
+                        class="filter-btn active px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-wider hover:border-gold hover:text-gold transition-all duration-300"
+                        data-filter="all">Vše</button>
+                    <button
+                        class="filter-btn px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-wider hover:border-gold hover:text-gold transition-all duration-300"
+                        data-filter="svatba">Svatby</button>
+                    <button
+                        class="filter-btn px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-wider hover:border-gold hover:text-gold transition-all duration-300"
+                        data-filter="portret">Portrét & Páry</button>
+                    <button
+                        class="filter-btn px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-wider hover:border-gold hover:text-gold transition-all duration-300"
+                        data-filter="produkt">Produkt</button>
+                    <button
+                        class="filter-btn px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-wider hover:border-gold hover:text-gold transition-all duration-300"
+                        data-filter="mazlicci">Mazlíčci</button>
+                </div>
+            </div>
+
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+
+                <!-- Svatba 1 -->
+                <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in"
+                    data-category="svatba" onclick="openLightbox(this)">
+                    <img src="images/svatba1.jpg" alt="Svatba" class="w-full h-full object-cover image-hover-zoom">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                        <div
+                            class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-gold text-xs uppercase tracking-widest">Svatba</p>
+                            <h3 class="text-white font-serif text-xl">Láska v detailech</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mazlíčci -->
+                <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in"
+                    data-category="mazlicci" onclick="openLightbox(this)">
+                    <img src="images/mazlicek.jpg" alt="Pes v přírodě"
+                        class="w-full h-full object-cover image-hover-zoom">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                        <div
+                            class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-gold text-xs uppercase tracking-widest">Mazlíčci</p>
+                            <h3 class="text-white font-serif text-xl">Věrný přítel</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portrét -->
+                <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in"
+                    data-category="portret" onclick="openLightbox(this)">
+                    <img src="images/portrét.jpeg" alt="Portrét žena"
+                        class="w-full h-full object-cover image-hover-zoom">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                        <div
+                            class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-gold text-xs uppercase tracking-widest">Portrét</p>
+                            <h3 class="text-white font-serif text-xl">Emoce okamžiku</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produkt -->
+                <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in"
+                    data-category="produkt" onclick="openLightbox(this)">
+                    <img src="images/produkt.jpg" alt="Hodinky" class="w-full h-full object-cover image-hover-zoom">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                        <div
+                            class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-gold text-xs uppercase tracking-widest">Produkt</p>
+                            <h3 class="text-white font-serif text-xl">Produktová fotografie</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Svatba 2 -->
+                <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in"
+                    data-category="svatba" onclick="openLightbox(this)">
+                    <img src="images/svatba2.jpg" alt="Svatba pár" class="w-full h-full object-cover image-hover-zoom">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                        <div
+                            class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-gold text-xs uppercase tracking-widest">Svatba</p>
+                            <h3 class="text-white font-serif text-xl">Společná cesta</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Párové -->
+                <div class="gallery-item group relative overflow-hidden h-80 cursor-pointer fade-in"
+                    data-category="portret" onclick="openLightbox(this)">
+                    <img src="images/svatba3.jpg" alt="Pár v horách"
+                        class="w-full h-full object-cover image-hover-zoom">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                        <div
+                            class="text-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <p class="text-gold text-xs uppercase tracking-widest">Párové</p>
+                            <h3 class="text-white font-serif text-xl">Spolu</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Prices -->
+    <section id="services" class="py-20 bg-card-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-serif font-bold text-white mb-4">Služby a Ceník</h2>
+                <div class="w-24 h-1 bg-gold mx-auto mb-8"></div>
+                <p class="text-gray-400 max-w-2xl mx-auto italic">
+                    "Uvedené ceny slouží jako orientační přehled... Finální cenu vždy stanovuji až po krátké osobní nebo
+                    online konzultaci."
+                </p>
+            </div>
+
+            <!-- Weddings -->
+            <div class="mb-20">
+                <h3
+                    class="text-2xl font-serif text-white mb-8 text-center uppercase tracking-widest border-b border-gray-800 pb-4 inline-block w-full">
+                    Svatební Fotografování</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Basic Wedding -->
+                    <div
+                        class="bg-dark-bg p-8 text-center border border-gray-800 hover:border-gold transition-colors fade-in">
+                        <h4 class="text-lg font-bold text-white mb-2 uppercase tracking-widest">Základní</h4>
+                        <div class="text-gold text-3xl font-serif font-bold mb-4">6 500 Kč</div>
+                        <p class="text-gray-500 text-xs mb-6">Obřad + krátké portréty</p>
+                        <ul class="text-gray-400 space-y-3 mb-8 text-sm text-left pl-4">
+                            <li><i class="fas fa-check text-gold mr-2"></i> Až 2 hodiny focení</li>
+                            <li><i class="fas fa-check text-gold mr-2"></i> 60+ upravených fotek</li>
+                            <li><i class="fas fa-check text-gold mr-2"></i> Online galerie</li>
+                            <li><i class="fas fa-check text-gold mr-2"></i> Základní retuš</li>
+                        </ul>
+                        <a href="#contact"
+                            class="block w-full py-2 border border-white text-white hover:bg-white hover:text-black transition-colors text-xs uppercase font-bold">Poptat</a>
+                    </div>
+
+                    <!-- Half Day Wedding -->
+                    <div
+                        class="bg-dark-bg p-8 text-center border-2 border-gold transform md:-translate-y-4 shadow-xl fade-in relative">
+                        <div class="absolute top-0 right-0 bg-gold text-black text-xs font-bold px-2 py-1">DOPORUČENO
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2 uppercase tracking-widest">Polodenní</h4>
+                        <div class="text-gold text-4xl font-serif font-bold mb-4">12 900 Kč</div>
+                        <p class="text-gray-500 text-xs mb-6">Od obřadu po tanec</p>
+                        <ul class="text-gray-400 space-y-3 mb-8 text-sm text-left pl-4">
+                            <li><i class="fas fa-check text-gold mr-2"></i> 5 hodin focení</li>
+                            <li><i class="fas fa-check text-gold mr-2"></i> 150+ upravených fotek</li>
+                            <li><i class="fas fa-check text-gold mr-2"></i> Online galerie</li>
+                            <li><i class="fas fa-check text-gold mr-2"></i> Předsvatební konzultace</li>
+                        </ul>
+                        <a href="#contact"
+                            class="block w-full py-3 bg-gold text-black hover:bg-white transition-colors text-xs uppercase font-bold">Poptat</a>
+                    </div>
+
+                    <!-- Full Day Wedding -->
+                    <div
+                        class="bg-dark-bg p-8 text-center border border-gray-800 hover:border-gold transition-colors fade-in">
+                        <h4 class="text-lg font-bold text-white mb-2 uppercase tracking-widest">Celodenní</h4>
+                        <div class="text-gold text-3xl font-serif font-bold mb-4">22 900 Kč</div>
+                        <p class="text-gray-500 text-xs mb-6">Přípravy až párty</p>
+                        <ul class="text-gray-400 space-y-3 mb-8 text-sm text-left pl-4">
+                            <li><i class="fas fa-check text-gold mr-2"></i> Až 10 hodin focení</li>
+                            <li><i class="fas fa-check text-gold mr-2"></i> 300–450 upravených fotek</li>
+                            <li><i class="fas fa-check text-gold mr-2"></i> Párové fotografování</li>
+                            <li><i class="fas fa-check text-gold mr-2"></i> Předsvatební schůzka</li>
+                        </ul>
+                        <a href="#contact"
+                            class="block w-full py-2 border border-white text-white hover:bg-white hover:text-black transition-colors text-xs uppercase font-bold">Poptat</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portraits / Family -->
+            <div>
+                <h3
+                    class="text-2xl font-serif text-white mb-8 text-center uppercase tracking-widest border-b border-gray-800 pb-4 inline-block w-full">
+                    Párové / Rodinné / Portrétní</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Basic Portrait -->
+                    <div
+                        class="bg-dark-bg p-6 text-center border border-gray-800 hover:border-gold transition-colors fade-in">
+                        <h4 class="text-white font-bold uppercase tracking-widest mb-2">Základní</h4>
+                        <div class="text-gold text-2xl font-serif font-bold mb-4">2 200 Kč</div>
+                        <p class="text-gray-400 text-sm mb-4">45–60 minut, 15 fotek, tisky 23x15 cm</p>
+                        <a href="#contact" class="text-white underline hover:text-gold text-sm">Objednat</a>
+                    </div>
+                    <!-- Standard Portrait -->
+                    <div
+                        class="bg-dark-bg p-6 text-center border border-gray-800 hover:border-gold transition-colors fade-in">
+                        <h4 class="text-white font-bold uppercase tracking-widest mb-2">Standardní</h4>
+                        <div class="text-gold text-2xl font-serif font-bold mb-4">3 500 Kč</div>
+                        <p class="text-gray-400 text-sm mb-4">1–1,5 h, 30 fotek, tisky 23x15 cm</p>
+                        <a href="#contact" class="text-white underline hover:text-gold text-sm">Objednat</a>
+                    </div>
+                    <!-- Premium Portrait -->
+                    <div
+                        class="bg-dark-bg p-6 text-center border border-gray-800 hover:border-gold transition-colors fade-in">
+                        <h4 class="text-white font-bold uppercase tracking-widest mb-2">Premiový</h4>
+                        <div class="text-gold text-2xl font-serif font-bold mb-4">5 500 Kč</div>
+                        <p class="text-gray-400 text-sm mb-4">2–3 h, 50+ fotek, lokalita dle výběru</p>
+                        <a href="#contact" class="text-white underline hover:text-gold text-sm">Objednat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 bg-dark-bg border-t border-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-serif font-bold text-white mb-4">Z Blogu</h2>
+                <div class="w-24 h-1 bg-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Post 1 -->
+                <article class="bg-card-bg p-6 hover:bg-card-hover transition-colors fade-in">
+                    <span class="text-gold text-xs uppercase font-bold">4. 12. 2025</span>
+                    <h3 class="text-white font-serif text-lg mt-2 mb-3 leading-snug">Inspirace z cest pro každodenní
+                        život</h3>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-3">Tento odstavec slouží jako úvod k vašemu
+                        příspěvku na blogu. Začněte tím, že proberete hlavní téma...</p>
+                    <a href="#"
+                        class="text-white text-xs uppercase font-bold border-b border-gold pb-1 hover:text-gold">Číst
+                        více</a>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="bg-card-bg p-6 hover:bg-card-hover transition-colors fade-in">
+                    <span class="text-gold text-xs uppercase font-bold">4. 12. 2025</span>
+                    <h3 class="text-white font-serif text-lg mt-2 mb-3 leading-snug">Techniky pro zachycení dokonalého
+                        světla</h3>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-3">Poskytněte stručný přehled, který zdůrazní, proč
+                        je toto téma důležité a jak může přinést hodnotu...</p>
+                    <a href="#"
+                        class="text-white text-xs uppercase font-bold border-b border-gold pb-1 hover:text-gold">Číst
+                        více</a>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="bg-card-bg p-6 hover:bg-card-hover transition-colors fade-in">
+                    <span class="text-gold text-xs uppercase font-bold">4. 12. 2025</span>
+                    <h3 class="text-white font-serif text-lg mt-2 mb-3 leading-snug">Jak příprava ovlivňuje svatební
+                        fotky</h3>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-3">Použijte tento prostor k nastavení tónu zbytku
+                        článku a k přípravě čtenáře na to, co přijde...</p>
+                    <a href="#"
+                        class="text-white text-xs uppercase font-bold border-b border-gold pb-1 hover:text-gold">Číst
+                        více</a>
+                </article>
+
+                <!-- Post 4 -->
+                <article class="bg-card-bg p-6 hover:bg-card-hover transition-colors fade-in">
+                    <span class="text-gold text-xs uppercase font-bold">4. 12. 2025</span>
+                    <h3 class="text-white font-serif text-lg mt-2 mb-3 leading-snug">Proč mít profesionála na svatbě
+                    </h3>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-3">Zajistěte, aby úvod zaujal čtenáře od první věty.
+                        Profesionální fotograf vidí to, co ostatní ne...</p>
+                    <a href="#"
+                        class="text-white text-xs uppercase font-bold border-b border-gold pb-1 hover:text-gold">Číst
+                        více</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-card-bg relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-12">
+
+                <!-- Contact Info -->
+                <div class="lg:w-1/3 fade-in">
+                    <h2 class="text-4xl font-serif font-bold text-white mb-6">Napište mi</h2>
+                    <p class="text-gray-400 mb-8">
+                        Napište mi s předstihem, co je pro Vás důležité vyfotit. Věřím, že se domluvíme k oboustranné
+                        spokojenosti. =)
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-center group">
+                            <div
+                                class="w-12 h-12 rounded-full bg-dark-bg flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-black transition-colors">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="ml-4">
+                                <span class="block text-gray-500 text-xs uppercase">E-mail</span>
+                                <a href="mailto:info@janspilka.cz"
+                                    class="text-white hover:text-gold transition-colors">info@janspilka.cz</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center group">
+                            <div
+                                class="w-12 h-12 rounded-full bg-dark-bg flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-black transition-colors">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div class="ml-4">
+                                <span class="block text-gray-500 text-xs uppercase">Instagram</span>
+                                <a href="#" class="text-white hover:text-gold transition-colors">@janspilka_photo</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center group">
+                            <div
+                                class="w-12 h-12 rounded-full bg-dark-bg flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-black transition-colors">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <div class="ml-4">
+                                <span class="block text-gray-500 text-xs uppercase">YouTube</span>
+                                <a href="#" class="text-white hover:text-gold transition-colors">Jan Spilka</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="lg:w-2/3 bg-dark-bg p-8 md:p-12 fade-in shadow-2xl border border-gray-800">
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Jméno
+                                    *</label>
+                                <input type="text" required
+                                    class="w-full bg-card-bg border border-gray-700 text-white p-3 focus:outline-none focus:border-gold transition-colors focus:bg-black">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Příjmení</label>
+                                <input type="text"
+                                    class="w-full bg-card-bg border border-gray-700 text-white p-3 focus:outline-none focus:border-gold transition-colors focus:bg-black">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">E-mail
+                                    *</label>
+                                <input type="email" required
+                                    class="w-full bg-card-bg border border-gray-700 text-white p-3 focus:outline-none focus:border-gold transition-colors focus:bg-black">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Telefonní
+                                    číslo *</label>
+                                <input type="tel" required
+                                    class="w-full bg-card-bg border border-gray-700 text-white p-3 focus:outline-none focus:border-gold transition-colors focus:bg-black">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Předmět / Typ
+                                focení</label>
+                            <select
+                                class="w-full bg-card-bg border border-gray-700 text-white p-3 focus:outline-none focus:border-gold transition-colors focus:bg-black">
+                                <option>Svatba</option>
+                                <option>Portrétní focení</option>
+                                <option>Produktová fotografie</option>
+                                <option>Mazlíčci</option>
+                                <option>Kalendář 2026</option>
+                                <option>Jiné</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Zpráva *</label>
+                            <textarea rows="5" required placeholder="Popište mi o jaký typ fotografování máte zájem..."
+                                class="w-full bg-card-bg border border-gray-700 text-white p-3 focus:outline-none focus:border-gold transition-colors focus:bg-black"></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full md:w-auto px-10 py-4 bg-gold text-black font-bold uppercase tracking-widest hover:bg-white transition-colors">Odeslat</button>
+                    </form>
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="successMessage" class="hidden text-center py-10">
+                        <i class="fas fa-check-circle text-5xl text-gold mb-4"></i>
+                        <h3 class="text-2xl font-serif text-white mb-2">Děkuji za zprávu!</h3>
+                        <p class="text-gray-400">Ozvu se vám co nejdříve zpět.</p>
+                        <button onclick="resetForm()"
+                            class="mt-6 text-sm underline text-gray-500 hover:text-white">Odeslat další</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-10 border-t border-gray-900">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl font-serif font-bold text-white mb-6">JAN SPILKA</h2>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#"
+                    class="w-10 h-10 border border-gray-700 rounded-full flex items-center justify-center text-white hover:border-gold hover:text-gold transition-all"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="#"
+                    class="w-10 h-10 border border-gray-700 rounded-full flex items-center justify-center text-white hover:border-gold hover:text-gold transition-all"><i
+                        class="fab fa-youtube"></i></a>
+                <a href="#"
+                    class="w-10 h-10 border border-gray-700 rounded-full flex items-center justify-center text-white hover:border-gold hover:text-gold transition-all"><i
+                        class="fab fa-facebook-f"></i></a>
+            </div>
+            <p class="text-gray-600 text-sm">&copy; 2025 Jan Spilka Photography. Všechna práva vyhrazena.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox"
+        class="fixed inset-0 z-50 bg-black bg-opacity-95 hidden items-center justify-center p-4 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <button id="close-lightbox"
+            class="absolute top-6 right-6 text-white text-4xl hover:text-gold focus:outline-none">&times;</button>
+        <img id="lightbox-img" src="" alt="Full screen" class="max-h-[90vh] max-w-[90vw] object-contain shadow-2xl">
+        <div id="lightbox-caption"
+            class="absolute bottom-6 left-0 w-full text-center text-white font-serif text-xl tracking-wider"></div>
+    </div>
+
+    <script>
+        // --- Navbar Scroll Effect ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black', 'shadow-lg', 'py-2');
+                navbar.classList.remove('bg-transparent', 'py-4');
+            } else {
+                navbar.classList.add('bg-transparent', 'py-4');
+                navbar.classList.remove('bg-black', 'shadow-lg', 'py-2');
+            }
+        });
+
+        // --- Mobile Menu Toggle ---
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+            });
+        });
+
+        // --- Gallery Filtering ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.classList.remove('hidden');
+                        item.classList.add('block');
+                        item.classList.remove('fade-in', 'visible');
+                        void item.offsetWidth;
+                        item.classList.add('fade-in', 'visible');
+                    } else {
+                        item.classList.remove('block');
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // --- Lightbox ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeLightbox = document.getElementById('close-lightbox');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+
+        function openLightbox(element) {
+            let img, title;
+            if (element.tagName === 'IMG') {
+                img = element;
+                title = element.alt;
+            } else {
+                img = element.querySelector('img');
+                const titleEl = element.querySelector('h3');
+                title = titleEl ? titleEl.innerText : '';
+            }
+
+            lightboxImg.src = img.src;
+            lightboxCaption.innerText = title;
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
+        }
+
+        closeLightbox.addEventListener('click', () => {
+            lightbox.classList.add('opacity-0');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+            }, 300);
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox.click();
+        });
+
+        // --- Contact Form ---
+        const form = document.getElementById('contactForm');
+        const successMsg = document.getElementById('successMessage');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+        });
+
+        function resetForm() {
+            form.reset();
+            successMsg.classList.add('hidden');
+            form.classList.remove('hidden');
+        }
+
+        // --- Scroll Animation ---
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    </script>
+</body>
+
+</html>
