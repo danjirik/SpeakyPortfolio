@@ -285,6 +285,120 @@
             }
 
 
+            // --- Service Modal Logic ---
+            const serviceData = {
+                'weddings': {
+                    title: 'Svatby',
+                    description: 'Svatební fotografie je o zachycení emocí, lásky a neopakovatelných okamžiků. Mým cílem je vyprávět váš příběh tak, abyste si při prohlížení fotek i po letech vybavili přesně tu atmosféru, vůni květin a smích vašich blízkých. Nabízím komplexní pokrytí od příprav až po večerní zábavu, s důrazem na přirozenost a detaily.',
+                    images: [
+                        'images/svatba0.jpg',
+                        'images/svatba1.jpg',
+                        'images/svatba2.jpg',
+                        'images/svatba3.jpg',
+                        'images/svatba4.jpg'
+                    ]
+                },
+                'pets': {
+                    title: 'Focení mazlíčků',
+                    description: 'Naši čtyřnozí přátelé jsou plnohodnotnými členy rodiny. Při focení mazlíčků se snažím zachytit jejich jedinečnou osobnost, ať už jde o akční záběry v běhu nebo klidné portréty. Mám trpělivost a zkušenosti s různými zvířaty, takže se nemusíte bát, že by váš parťák "nespolupracoval".',
+                    images: [
+                        'images/mazlicek.jpg',
+                        'images/houbkalendarpreview1.jpg',
+                        'images/houbkalendarpreview2.jpg'
+                    ]
+                },
+                'product': {
+                    title: 'Produktová fotografie',
+                    description: 'Kvalitní prezentace je klíčem k prodeji. Nabízím profesionální produktové fotografie, které podtrhnou přednosti vašich výrobků. Ať už potřebujete čisté produktovky na e-shop nebo stylizované aranžované fotky na sociální sítě, společně vytvoříme vizuál, který zaujme.',
+                    images: [
+                        'images/produkt.jpg',
+                        'images/fotografický_kalednář.jpg',
+                        'images/fotokalendarpreview1.jpg'
+                    ]
+                },
+                'portrait': {
+                    title: 'Portrétní a párové',
+                    description: 'Portrétní fotografie není jen o tom "vypadat dobře", ale především o tom cítit se dobře. Snažím se vytvořit uvolněnou atmosféru, kde můžete být sami sebou. Focení párů, rande, těhotenské nebo rodinné foto – vždy hledáme to nejlepší světlo a kompozici pro vaše vzpomínky.',
+                    images: [
+                        'images/portrét.jpeg',
+                        'images/portfolio1.jpg',
+                        'images/portfolio3.jpg',
+                        'images/portfolio4.jpg'
+                    ]
+                }
+            };
+
+            const serviceModal = document.getElementById('service-modal');
+            const closeServiceBtn = document.getElementById('close-service-modal');
+            const modalTitle = document.getElementById('service-modal-title');
+            const modalDesc = document.getElementById('service-modal-desc');
+            const modalImages = document.getElementById('service-modal-images');
+
+            if (serviceModal) {
+                window.openServiceModal = function (serviceKey) {
+                    const data = serviceData[serviceKey];
+                    if (!data) return;
+
+                    modalTitle.innerText = data.title;
+                    modalDesc.innerText = data.description;
+
+                    // Clear and populate images
+                    modalImages.innerHTML = '';
+                    data.images.forEach(imgSrc => {
+                        const imgWrapper = document.createElement('div');
+                        imgWrapper.className = 'rounded-lg overflow-hidden h-64 border border-gray-800 group relative';
+
+                        const img = document.createElement('img');
+                        img.src = imgSrc;
+                        img.alt = data.title;
+                        img.className = 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-110';
+
+                        // Optional: Allow lightbox opening from here too
+                        imgWrapper.onclick = function () {
+                            if (window.openLightbox) window.openLightbox(img);
+                        };
+                        imgWrapper.style.cursor = 'pointer';
+
+                        imgWrapper.appendChild(img);
+                        modalImages.appendChild(imgWrapper);
+                    });
+
+                    serviceModal.classList.remove('hidden');
+                    serviceModal.classList.add('flex');
+                    // Small delay for fade in
+                    requestAnimationFrame(() => {
+                        serviceModal.classList.remove('opacity-0');
+                    });
+                    // Prevent body scroll
+                    document.body.style.overflow = 'hidden';
+                };
+
+                const closeService = () => {
+                    serviceModal.classList.add('opacity-0');
+                    setTimeout(() => {
+                        serviceModal.classList.add('hidden');
+                        serviceModal.classList.remove('flex');
+                        document.body.style.overflow = '';
+                    }, 300);
+                };
+
+                if (closeServiceBtn) {
+                    closeServiceBtn.addEventListener('click', closeService);
+                }
+
+                // Close on click outside
+                serviceModal.addEventListener('click', (e) => {
+                    if (e.target === serviceModal) closeService();
+                });
+
+                // Close on ESC
+                window.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !serviceModal.classList.contains('hidden')) {
+                        closeService();
+                    }
+                });
+            }
+
             // --- Scroll Animation ---
             const observerOptions = { threshold: 0.1 };
             const observer = new IntersectionObserver((entries) => {

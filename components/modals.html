@@ -7,3 +7,35 @@
     <div id="lightbox-caption"
         class="absolute bottom-6 left-0 w-full text-center text-white font-serif text-xl tracking-wider"></div>
 </div>
+
+<!-- Service Detail Modal -->
+<div id="service-modal"
+    class="fixed inset-0 z-50 bg-black bg-opacity-95 hidden items-center justify-center p-4 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+    <div
+        class="bg-card-bg w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-lg shadow-2xl relative border border-gray-800">
+        <!-- Close Button -->
+        <button id="close-service-modal"
+            class="absolute top-4 right-4 text-gray-400 hover:text-gold transition-colors z-10">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+
+        <!-- Content -->
+        <div class="p-8 md:p-12">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h3 id="service-modal-title" class="text-3xl font-serif text-white mb-4">Service Title</h3>
+                <div class="w-16 h-1 bg-gold mx-auto"></div>
+            </div>
+
+            <!-- Description -->
+            <div class="text-center mb-10">
+                <p id="service-modal-desc" class="text-gray-300 leading-relaxed max-w-2xl mx-auto"></p>
+            </div>
+
+            <!-- Image Grid -->
+            <div id="service-modal-images" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Images will be injected here -->
+            </div>
+        </div>
+    </div>
+</div>
